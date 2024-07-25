@@ -14,7 +14,7 @@ export default function AppRouter() {
 						index
 					/>
 					<Route
-						path='/favorite'
+						path='/favoritos'
 						element={<FavoritePage />}
 					/>
 				</Route>
