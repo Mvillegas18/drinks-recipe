@@ -9,11 +9,11 @@ export default function AppRouter() {
 				<Route
 					path='/'
 					element={<IndexPage />}></Route>
+				<Route
+					path='/favorite'
+					element={<FavoritePage />}
+				/>
 			</Routes>
-			<Route
-				path='/favorite'
-				element={<FavoritePage />}
-			/>
 		</BrowserRouter>
 	);
 }
