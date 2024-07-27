@@ -1,4 +1,8 @@
+import { useAppStore } from '../stores/useAppStore';
+
 export default function SearchForm() {
+	const { drinks } = useAppStore((state) => state.categories);
+
 	return (
 		<form
 			action=''
@@ -29,6 +33,13 @@ export default function SearchForm() {
 					id='category'
 					className='p-3 w-full rounded-lg focus:outline-none'>
 					<option value=''>-- Selecciona una categoría --</option>
+					{drinks.map((category) => (
+						<option
+							key={category.strCategory}
+							value={category.strCategory}>
+							{category.strCategory}
+						</option>
+					))}
 				</select>
 			</div>
 
