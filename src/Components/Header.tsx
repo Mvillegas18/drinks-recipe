@@ -1,11 +1,17 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAppStore } from '../stores/useAppStore';
 import SearchForm from './SearchForm';
 
 export default function Header() {
 	const { pathname } = useLocation();
-
 	const isHome = useMemo(() => pathname === '/', [pathname]);
+
+	const { fetchCategories } = useAppStore();
+
+	useEffect(() => {
+		fetchCategories();
+	}, [fetchCategories]);
 
 	return (
 		<header
