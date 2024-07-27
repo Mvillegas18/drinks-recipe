@@ -1,10 +1,37 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppStore } from '../stores/useAppStore';
 
 export default function SearchForm() {
 	const { drinks } = useAppStore((state) => state.categories);
+	const [searchFilters, setSearchFilters] = useState({
+		ingredient: '',
+		category: '',
+	});
+
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+	) => {
+		setSearchFilters({
+			...searchFilters,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		//TODO: Validar
+
+		if (Object.values(searchFilters).includes('')) {
+			console.error('Todos los campos son necesarios');
+		}
+
+		// Consultar las recetas
+	};
 
 	return (
 		<form
+			onSubmit={handleSubmit}
 			action=''
 			className='md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6'>
 			<div className='space-y-4'>
@@ -19,6 +46,8 @@ export default function SearchForm() {
 					placeholder='Ej. Vodka, Ron, etc.'
 					name='ingredient'
 					className='p-3 w-full rounded-lg focus:outline-none'
+					onChange={handleChange}
+					value={searchFilters.ingredient}
 				/>
 			</div>
 
@@ -31,7 +60,9 @@ export default function SearchForm() {
 				<select
 					name='category'
 					id='category'
-					className='p-3 w-full rounded-lg focus:outline-none'>
+					className='p-3 w-full rounded-lg focus:outline-none'
+					onChange={handleChange}
+					value={searchFilters.category}>
 					<option value=''>-- Selecciona una categoría --</option>
 					{drinks.map((category) => (
 						<option
