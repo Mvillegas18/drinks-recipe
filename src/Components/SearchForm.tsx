@@ -1,9 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppStore } from '../stores/useAppStore';
+import type { SearchFilter } from '../types';
 
 export default function SearchForm() {
-	const { drinks } = useAppStore((state) => state.categories);
-	const [searchFilters, setSearchFilters] = useState({
+	const {
+		categories: { drinks },
+		searchRecipes,
+	} = useAppStore();
+
+	const [searchFilters, setSearchFilters] = useState<SearchFilter>({
 		ingredient: '',
 		category: '',
 	});
@@ -27,6 +32,7 @@ export default function SearchForm() {
 		}
 
 		// Consultar las recetas
+		searchRecipes(searchFilters);
 	};
 
 	return (
