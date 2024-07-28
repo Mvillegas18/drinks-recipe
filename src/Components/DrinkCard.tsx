@@ -1,3 +1,4 @@
+import { useAppStore } from '../stores/useAppStore';
 import type { Drink } from '../types';
 
 type DrinkCardProps = {
@@ -5,6 +6,7 @@ type DrinkCardProps = {
 };
 
 export default function DrinkCard({ drink }: DrinkCardProps) {
+	const selectRecipe = useAppStore((state) => state.selectRecipe);
 	return (
 		<div className='border shadow-lg'>
 			<div className='overflow-hidden'>
@@ -18,7 +20,8 @@ export default function DrinkCard({ drink }: DrinkCardProps) {
 				<h2 className='text-2xl truncate font-black'>{drink.strDrink}</h2>
 				<button
 					type='submit'
-					className='bg-orange-400 hover:bg-orange-500 hover:text-black mt-5 w-full p-3 font-bold text-white text-lg transition-all duration-300 '>
+					className='bg-orange-400 hover:bg-orange-500 hover:text-black mt-5 w-full p-3 font-bold text-white text-lg transition-all duration-300'
+					onClick={() => selectRecipe(drink.idDrink)}>
 					Ver receta
 				</button>
 			</div>
