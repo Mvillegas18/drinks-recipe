@@ -9,16 +9,19 @@ import type { Categories, Drink, Drinks, Recipe, SearchFilter } from '../types';
 export type RecipeSliceType = {
 	categories: Categories;
 	drinks: Drinks;
+	modal: boolean;
 	selectedRecipe: Recipe;
 	fetchCategories: () => Promise<void>;
 	searchRecipes: (searchFilters: SearchFilter) => Promise<void>;
 	selectRecipe: (id: Drink['idDrink']) => Promise<void>;
+	closeModal: () => void;
 };
 
 export const createRecipeSlice: StateCreator<RecipeSliceType> = (set) => ({
 	categories: {
 		drinks: [],
 	},
+	modal: false,
 	drinks: {
 		drinks: [],
 	},
@@ -44,6 +47,13 @@ export const createRecipeSlice: StateCreator<RecipeSliceType> = (set) => ({
 
 		set({
 			selectedRecipe,
+			modal: true,
 		});
 	},
+
+	closeModal: () =>
+		set({
+			modal: false,
+			selectedRecipe: {} as Recipe,
+		}),
 });
