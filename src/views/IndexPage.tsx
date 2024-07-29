@@ -24,7 +24,6 @@ export default function IndexPage() {
 					No hay resultados aun, utiliza el formulario para buscar recetas
 				</p>
 			)}
-			<p>This is the index page.</p>
 		</>
 	);
 }
