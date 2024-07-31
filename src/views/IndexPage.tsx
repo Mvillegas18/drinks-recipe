@@ -3,9 +3,8 @@ import DrinkCard from '../Components/DrinkCard';
 import { useAppStore } from '../stores/useAppStore';
 
 export default function IndexPage() {
-	const { drinks } = useAppStore((state) => state.drinks);
-
-	const hasDrinks = useMemo(() => drinks.length, [drinks]);
+	const { drinks: { drinks } = { drinks: [] } } = useAppStore();
+	const hasDrinks = useMemo(() => drinks.length > 0, [drinks]);
 
 	return (
 		<>
