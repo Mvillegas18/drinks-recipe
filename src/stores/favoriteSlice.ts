@@ -1,5 +1,10 @@
 import { StateCreator } from 'zustand';
 import { Recipe } from '../types';
+import {
+	createNotificationSlice,
+	NotificationSliceType,
+} from './notificationSlice';
+import { RecipeSliceType } from './recipeSlice';
 
 export type FavoriteSliceType = {
 	favorites: Recipe[];
@@ -8,10 +13,12 @@ export type FavoriteSliceType = {
 	loadFromStorage: () => void;
 };
 
-export const createFavoriteSlice: StateCreator<FavoriteSliceType> = (
-	set,
-	get
-) => ({
+export const createFavoriteSlice: StateCreator<
+	FavoriteSliceType & RecipeSliceType & NotificationSliceType,
+	[],
+	[],
+	FavoriteSliceType
+> = (set, get, api) => ({
 	favorites: [],
 	handleClickFavorite: (recipe) => {
 		if (get().favoriteExist(recipe.idDrink)) {
@@ -20,10 +27,19 @@ export const createFavoriteSlice: StateCreator<FavoriteSliceType> = (
 					(favorite) => favorite.idDrink !== recipe.idDrink
 				),
 			}));
+			createNotificationSlice(set, get, api).showNotification({
+				text: 'Se elimino correctamente',
+				error: false,
+			});
 		} else {
 			set((state) => ({
 				favorites: [...state.favorites, recipe],
 			}));
+
+			createNotificationSlice(set, get, api).showNotification({
+				text: 'Se agrego a favoritos correctamente',
+				error: false,
+			});
 		}
 		localStorage.setItem('favorites', JSON.stringify(get().favorites));
 	},

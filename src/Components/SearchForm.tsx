@@ -6,6 +6,7 @@ export default function SearchForm() {
 	const {
 		categories: { drinks },
 		searchRecipes,
+		showNotification,
 	} = useAppStore();
 
 	const [searchFilters, setSearchFilters] = useState<SearchFilter>({
@@ -28,7 +29,10 @@ export default function SearchForm() {
 		//TODO: Validar
 
 		if (Object.values(searchFilters).includes('')) {
-			console.error('Todos los campos son necesarios');
+			showNotification({
+				text: 'Todos los campos son obligatorios',
+				error: true,
+			});
 		}
 
 		// Consultar las recetas
