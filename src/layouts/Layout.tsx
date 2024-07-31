@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Header';
 import Modal from '../Components/Modal';
+import Notification from '../Components/Notification';
 import { useAppStore } from '../stores/useAppStore';
 
 export default function Layout() {
@@ -18,6 +19,7 @@ export default function Layout() {
 			</main>
 
 			<Modal />
+			<Notification />
 		</>
 	);
 }
